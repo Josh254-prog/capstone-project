@@ -1,5 +1,5 @@
-import Login from "../components/Login";
-import Signup from "../components/Signup";
+import Login from "../components/AuthForm";
+import Signup from "../components/ForgotPassword";
 
 export default function Home() {
   return (
