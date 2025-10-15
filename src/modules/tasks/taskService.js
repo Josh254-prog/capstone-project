@@ -1,5 +1,6 @@
 import { supabase } from "../../utils/supabaseClient";
 
+
 // Fetch all tasks
 export const getTasks = async () => {
   const { data, error } = await supabase.from("tasks").select("*");
