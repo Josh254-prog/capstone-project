@@ -1,34 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
-
-// Pages
-import AuthForm from "./components/AuthForm";
-import Dashboard from "./pages/Dashboard";
-import ForgotPassword from "./components/ForgotPassword";
-import UpdatePassword from "./pages/UpdatePassword";
+import { useTasks } from "./context/TaskContext";
+import AuthPage from "./pages/AuthPage";
+import TodoPage from "./pages/TodoPage";
 
 export default function App() {
-  return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          {/* Public */}
-          <Route path="/" element={<AuthForm />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/update-password" element={<UpdatePassword />} />
-
-          {/* Private */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Router>
-    </AuthProvider>
-  );
+  const { user, loading } = useTasks();
+  if (loading) return <div className="p-10 text-center">Loading...</div>;
+  return user ? <TodoPage /> : <AuthPage />;
 }
